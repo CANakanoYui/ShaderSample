@@ -6,9 +6,9 @@ using UnityEngine.Rendering;
 
 public class PlanarReflectionCaster : MonoBehaviour
 {
-   private List<Renderer> meshRenderers = new ();
+   private readonly List<Renderer> _meshRenderers = new ();
    
-   private List<Mesh> meshes = new ();
+   private readonly List<Mesh> _meshes = new ();
 
    private Material _material;
 
@@ -28,14 +28,14 @@ public class PlanarReflectionCaster : MonoBehaviour
          if (isSkinnedMeshRenderer)
          {
             var skinnedMeshRenderer = renderer as SkinnedMeshRenderer;
-            meshes.Add(skinnedMeshRenderer.sharedMesh);
+            _meshes.Add(skinnedMeshRenderer.sharedMesh);
                     
          }else
          {
-            meshes.Add((renderer.GetComponent<MeshFilter>().sharedMesh));
+            _meshes.Add((renderer.GetComponent<MeshFilter>().sharedMesh));
          }
          
-         meshRenderers.Add(renderer);
+         _meshRenderers.Add(renderer);
          _material = renderer.material;
       }
    }
@@ -48,12 +48,12 @@ public class PlanarReflectionCaster : MonoBehaviour
 
    public void Render(CommandBuffer cmd)
    {
-      for( int i = 0; i < meshes.Count; i++)
+      for( int i = 0; i < _meshes.Count; i++)
       {
-         var transform = meshRenderers[i].transform;
+         var transform = _meshRenderers[i].transform;
          var matrix = Matrix4x4.TRS(transform.position, transform.rotation, transform.lossyScale );
          
-         cmd.DrawMesh(meshes[i], matrix, _material);
+         cmd.DrawMesh(_meshes[i], matrix, _material);
       }
    }
 }
