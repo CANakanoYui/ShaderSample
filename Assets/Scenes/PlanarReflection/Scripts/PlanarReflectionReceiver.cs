@@ -6,16 +6,18 @@ using UnityEngine.UI;
 
 public class PlanarReflectionReceiver : MonoBehaviour
 {
-    [SerializeField] private int _factor = 1;
-    
-    public RenderTexture ReflectionTexture { get; set; }
+    [SerializeField] private float _factor = 1;
+
+    [SerializeField] private RenderTexture _reflectionTexture;
+
+    public RenderTexture ReflectionTexture => _reflectionTexture;
 
     private Material _material;
 
     private void Start()
     {
-        _factor = Math.Max(_factor, 1);
-        ReflectionTexture = new(Screen.width / _factor,Screen.height / _factor,32);
+        _reflectionTexture.width = (int)(Screen.width * _factor);
+        _reflectionTexture.height = (int)(Screen.height * _factor);
     }
 
     private void Update()

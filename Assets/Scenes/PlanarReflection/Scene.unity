@@ -156,6 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _factor: 1
+  _reflectionTexture: {fileID: 8400000, guid: 9f0127909578a9440a9609cbd163f69b, type: 2}
 --- !u!64 &1463869426
 MeshCollider:
   m_ObjectHideFlags: 0
