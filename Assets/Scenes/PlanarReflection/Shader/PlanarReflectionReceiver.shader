@@ -1,5 +1,10 @@
 Shader "PlaneReflection/Receiver"
 {
+    Properties {
+        _MainTex ("MainTex", 2D) = "white" {}
+        _ReflectionTex ("ReflectionTex", 2D) = "white" {}
+    }
+    
 SubShader
     {
         Tags { "RenderType"="Opaque" }
@@ -57,7 +62,7 @@ SubShader
                 float4 col = tex2D(_MainTex, vsOut.uv);
                 float2 uv = CalcUVCoordFromClip(vsOut.posInProj);
                 float4 refCol = tex2D(_ReflectionTex, uv);
-                float4 finalCol = lerp( col, refCol, 0.1f);
+                float4 finalCol = lerp( col, refCol, 0.5f);
                 return finalCol;
             }
             ENDCG

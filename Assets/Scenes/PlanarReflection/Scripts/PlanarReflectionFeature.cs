@@ -11,9 +11,13 @@ public class PlanarReflectionFeature : ScriptableRendererFeature
     
     [SerializeField] private Shader _receiverShader;
     
+    [SerializeField] private int _width = 512;
+    
+    [SerializeField] private int _height = 512;
+
     public override void Create()
     {
-        _planarReflectionPass = new PlanarReflectionPass(_casterShader,_receiverShader);
+        _planarReflectionPass = new PlanarReflectionPass(_width,_height);
     }
 
     public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
