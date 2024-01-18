@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: PlanarReflectionFeature
   m_EditorClassIdentifier: 
   m_Active: 1
-  _casterShader: {fileID: 4800000, guid: 764a1c093ce2ff04c91a1e262317f6ad, type: 3}
-  _receiverShader: {fileID: 4800000, guid: e5dadf81101654b44b68e3f41ee5f07b, type: 3}
   _width: 512
   _height: 512
 --- !u!114 &-1878332245247344467
@@ -70,8 +68,9 @@ MonoBehaviour:
     hdrDebugViewPS: {fileID: 4800000, guid: 573620ae32aec764abd4d728906d2587, type: 3}
   m_RendererFeatures:
   - {fileID: -1878332245247344467}
+  - {fileID: 4800670798591242572}
   - {fileID: -3229328010485363763}
-  m_RendererFeatureMap: adc0de57c6d2eee5cd0bcdbf481f2fd3
+  m_RendererFeatureMap: adc0de57c6d2eee54c319f01a8689f42cd0bcdbf481f2fd3
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -114,6 +113,20 @@ MonoBehaviour:
   m_CopyDepthMode: 0
   m_AccurateGbufferNormals: 0
   m_IntermediateTextureMode: 1
+--- !u!114 &4800670798591242572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec95ca31a16b9d54d9d94adb393de49f, type: 3}
+  m_Name: DrawStencilFeature
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  _shader: {fileID: 4800000, guid: 2baf21dc5650ddd4a981317df0feb300, type: 3}
 --- !u!114 &5090319036060050032
 MonoBehaviour:
   m_ObjectHideFlags: 0

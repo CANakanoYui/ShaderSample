@@ -2,12 +2,11 @@ Shader "PlaneReflection/Receiver"
 {
     Properties {
         _MainTex ("MainTex", 2D) = "white" {}
-        _ReflectionTex ("ReflectionTex", 2D) = "white" {}
     }
     
 SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags { "RenderType"="Opaque" "Queue"="Geometry+1"}
         LOD 100
 
         Pass
@@ -19,9 +18,8 @@ SubShader
            
             #include "UnityCG.cginc"
 
-            // クリップ空間からUV座標を計算する。
-            // プラットフォーム間の際を吸収したUV座標を計算します。
-            inline float2 CalcUVCoordFromClip(float4 coordInClipSpace)
+            // クリップ空間からUV座標を計算する
+            float2 CalcUVCoordFromClip(float4 coordInClipSpace)
             {
                 float2 uv = coordInClipSpace.xy / coordInClipSpace.w;
                 uv *= float2(0.5f, 0.5f * _ProjectionParams.x);
@@ -62,7 +60,7 @@ SubShader
                 float4 col = tex2D(_MainTex, vsOut.uv);
                 float2 uv = CalcUVCoordFromClip(vsOut.posInProj);
                 float4 refCol = tex2D(_ReflectionTex, uv);
-                float4 finalCol = lerp( col, refCol, 0.5f);
+                float4 finalCol = lerp(col, refCol, 0.5f);
                 return finalCol;
             }
             ENDCG

@@ -1,5 +1,9 @@
 Shader "PlaneReflection/Caster"
 {
+        Properties {
+        _MainTex ("MainTex", 2D) = "white" {}
+    }
+    
     SubShader
     {
         Tags { "RenderType" = "Opaque" }
@@ -7,6 +11,16 @@ Shader "PlaneReflection/Caster"
         
         Pass
         {
+            Tags { "LightMode" = "ReflectionCaster"}
+            
+            // ステンシルバッファの設定
+            Stencil{
+                // ステンシルの番号
+                Ref 1
+                // Equal: ステンシルバッファの値がRefと同じであれば描画を行う
+                Comp Equal
+            }
+            
             Cull Front
             
             CGPROGRAM
@@ -32,18 +46,9 @@ Shader "PlaneReflection/Caster"
                 float3 tangent : TANGENT;   // 節ベクトル
                 float biNormal : BINORMAL; // 従ベクトル
             };
-
-            // アルベドマップ。
+            
             sampler2D _MainTex;
             float4 _MainTex_ST;
-
-            // 法線マップ。
-            sampler2D _NormalMap;
-            float4 _NormalMap_ST;
-
-            // メタリックスムースマップ。Unityのメタリックワークフローに準拠。
-            sampler2D _MetallicSmoothMap;
-            float4 _MetallicSmoothMap_ST;
             
             VSOutput vert( VSInput vsIn )
             {
@@ -54,9 +59,10 @@ Shader "PlaneReflection/Caster"
                 vsOut.tangent = mul(unity_ObjectToWorld, vsIn.tangent);;
                 return vsOut;
             }
-            fixed4 frag(VSOutput vsOut) : SV_Target
+            
+            float4 frag(VSOutput vsOut) : SV_Target
             {
-                fixed4 col = tex2D(_MainTex, vsOut.uv);
+                float4 col = tex2D(_MainTex, vsOut.uv);
                 return col;
             }
             ENDCG
